@@ -2,8 +2,9 @@
 
 import useConversation from '@/app/hooks/useConversation';
 import { FullMessageType } from '@/app/types';
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import MessageBox from './MessageBox';
+import service from '@/app/utils/interceptor';
 
 interface BodyProps {
   initialMessages: FullMessageType[];
@@ -16,6 +17,10 @@ const Body: FC<BodyProps> = ({
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const { conversationId } = useConversation();
+
+  useEffect(() => {
+    // service.post(`/api/conversations/${conversationId}/seen`)
+  }, []);
 
   return (
     <div className='flex-1 overflow-y-auto'>
