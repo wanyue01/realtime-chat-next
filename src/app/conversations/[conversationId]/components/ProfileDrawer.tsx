@@ -10,6 +10,7 @@ import { Modal, notification } from 'antd';
 import service from '@/app/utils/interceptor';
 import { useRouter } from 'next/navigation';
 import AvatarGroup from '@/app/components/AvatarGroup';
+import useActiveList from '@/app/hooks/useActiveList';
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -27,6 +28,9 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
   const otherUser = useOtherUser(data);
   const router = useRouter();
 
+  const { members } = useActiveList();
+  const isActive = members.includes(otherUser?.email!);
+
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createAt), 'PP');
   }, [otherUser.createAt]);
@@ -39,8 +43,8 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
     if (data.isGroup) {
       return `${data.users.length} members`;
     }
-    return 'Active';
-  }, [data]);
+    return isActive ? '在线' : '离线';
+  }, [data, isActive]);
 
   const { confirm } = Modal;
 
