@@ -46,7 +46,7 @@ const Select: FC<SelectProps> = ({
             }),
           }}
           classNames={{
-            control: () => 'text-sm'
+            // control: () => 'text-sm'
           }}
         />
       </div>

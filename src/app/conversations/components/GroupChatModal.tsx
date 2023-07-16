@@ -78,7 +78,7 @@ const GroupChatModal: FC<GroupChatModalProps> = ({
             <div className='mt-10 flex flex-col gap-y-8'>
               <Input
                 disabled={isLoading}
-                label='用户名'
+                label='群聊名称'
                 id='name'
                 errors={errors}
                 required
