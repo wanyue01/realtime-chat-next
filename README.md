@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# realtime-chat-next(基于nextjs, pusher)
+- 😊写这个的目的主要是之前软工课设时这个功能没有完全实现，算是弥补遗憾吧
+- 😊希望能给有需要的人一点帮助，共同进步！
 
-## Getting Started
-
-First, run the development server:
-
-```bash
+### 启动方法
+```shell
 npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
+### .env配置文件
+```env
+# 本地的话要开mongodb集群，比较麻烦
+# DATABASE_URL="mongodb://wanyue:wanyue@127.0.0.1:27017/realtimeChat"
+DATABASE_URL=""
+NEXTAUTH_SECRET=""
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXT_PUBLIC_PUSHER_APP_KEY=
+PUSHER_APP_ID=
+PUSHER_SECRET=
