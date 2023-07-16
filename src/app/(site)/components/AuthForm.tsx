@@ -73,14 +73,21 @@ const AuthForm: FC<AuthFormProps> = ({ }) => {
     }
 
     if (variant === 'REGISTER') {
-      const result = await service.post('/api/register', data);
-      if (result?.data?.respCode === 0) {
-        signIn('credentials', {
-          ...data,
-          redirect: false,
-        });
+      try {
+        const result = await service.post('/api/register', data);
+        if (result?.data?.respCode === 0) {
+          signIn('credentials', {
+            ...data,
+            redirect: false,
+          });
+        } else {
+          notification.error({
+            message: result?.data?.message || '出错了',
+          });
+        }
+      } catch (error: any) {} finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
   };
 
@@ -98,7 +105,7 @@ const AuthForm: FC<AuthFormProps> = ({ }) => {
           {variant === 'REGISTER' && (
             <Input
               id='name'
-              label='Name'
+              label='用户名'
               register={register}
               errors={errors}
               disabled={isLoading}
@@ -106,7 +113,7 @@ const AuthForm: FC<AuthFormProps> = ({ }) => {
           )}
           <Input
             id='email'
-            label='Email address'
+            label='邮箱'
             type='email'
             register={register}
             errors={errors}
@@ -114,7 +121,7 @@ const AuthForm: FC<AuthFormProps> = ({ }) => {
           />
           <Input
             id='password'
-            label='Password'
+            label='口令'
             type='password'
             register={register}
             errors={errors}

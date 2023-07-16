@@ -102,6 +102,7 @@ export async function POST(
       data: newConversation,
     });
   } catch (error) {
+    console.log(error, 'ERROR_MESSAGE_SEND');
     return new NextResponse(JSON.stringify({ message: '服务器错误', respCode: 1 }), { status: 500 });
   }
 }

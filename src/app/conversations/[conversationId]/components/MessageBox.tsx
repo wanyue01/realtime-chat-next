@@ -75,6 +75,18 @@ const MessageBox: FC<MessageBoxProps> = ({
             <div>{data.body}</div>
           )}
         </div>
+        {isLast && isOwn && seenList.length > 0 && (
+          <div
+            className='
+              text-xs
+              font-light
+              text-gray-500
+
+            '
+          >
+            {`已读: ${[seenList]}`}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FC, useState, useCallback } from 'react';
 import service from '@/app/utils/interceptor';
 import Avatar from '@/app/components/Avatar';
+import { notification } from 'antd';
 
 interface UserBoxProps {
   data: User;
@@ -17,12 +18,23 @@ const UserBox: FC<UserBoxProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = useCallback(async () => {
     setIsLoading(true);
-    const result = await service.post('/api/conversations', {
-      userId: data.id,
-    });
-    // console.log(result);
-    router.push(`/conversations/${result.data.data.id}`);
-    setIsLoading(false);
+    try {
+      const result = await service.post('/api/conversations', {
+        userId: data.id,
+      });
+      if (result.data.respCode === 0) {
+        router.push(`/conversations/${result.data.data.id}`);
+      } else {
+        notification.error({
+          message: result?.data?.message || '出错了',
+        });
+      }
+    } catch (error) {
+
+    } finally {
+      setIsLoading(false);
+    }
+
   }, [data, router]);
   return (
     <div

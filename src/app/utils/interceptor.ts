@@ -17,6 +17,7 @@ service.interceptors.response.use(response => {
   notification.error({
     message: error?.response?.data?.message || '网络错误',
   });
+  throw error;
 });
 
 export default service;

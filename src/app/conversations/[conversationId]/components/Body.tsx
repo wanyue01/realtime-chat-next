@@ -19,8 +19,8 @@ const Body: FC<BodyProps> = ({
   const { conversationId } = useConversation();
 
   useEffect(() => {
-    // service.post(`/api/conversations/${conversationId}/seen`)
-  }, []);
+    service.post(`/api/conversations/${conversationId}/seen`)
+  }, [conversationId]);
 
   return (
     <div className='flex-1 overflow-y-auto'>
