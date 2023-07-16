@@ -1,6 +1,7 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import { NextResponse } from 'next/server';
 import prisma from '@/app/libs/prismadb';
+import { pusherServer } from '@/app/libs/pusher';
 
 // 处理单聊群聊
 export async function POST(
@@ -47,6 +48,11 @@ export async function POST(
         }
       });
 
+      newConversation.users.forEach(user => {
+        if (user.email) {
+          pusherServer.trigger(user.email, 'conversation:new', newConversation);
+        }
+      })
       return NextResponse.json({
         respCode: 0,
         data: newConversation,
@@ -95,6 +101,12 @@ export async function POST(
       include: {
         users: true,
       },
+    });
+
+    newConversation.users.forEach(user => {
+      if (user.email) {
+        pusherServer.trigger(user.email, 'conversation:new', newConversation);
+      }
     });
 
     return NextResponse.json({

@@ -1,5 +1,6 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import prisma from '@/app/libs/prismadb';
+import { pusherServer } from '@/app/libs/pusher';
 import { NextResponse } from 'next/server';
 
 interface IParams {
@@ -37,6 +38,11 @@ export async function DELETE(
           hasSome: [currentUser.id],
         },
       },
+    });
+
+    // 推送删除对话的ws
+    existingConversation.users.forEach(user => {
+      pusherServer.trigger(user.email!, 'conversation:remove', existingConversation);
     });
 
     return NextResponse.json({respCode: 0, data: deleteConversation});

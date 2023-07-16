@@ -1,5 +1,6 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import prisma from '@/app/libs/prismadb';
+import { pusherServer } from '@/app/libs/pusher';
 import { NextResponse } from 'next/server';
 
 interface IParams {
@@ -61,6 +62,19 @@ export async function POST(
         sender: true,
       },
     });
+
+    await pusherServer.trigger(currentUser.email, 'conversation:update', {
+      id: conversationId,
+      messages: [updatedMessage]
+    });
+
+    // 如果之前已经看过这条消息
+    if (lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
+      return NextResponse.json({respCode: 0, data: conversation});
+    }
+
+    await pusherServer.trigger(conversationId!, 'message:update', updatedMessage);
+
     return NextResponse.json({respCode: 0, data: updatedMessage});
   } catch (error) {
     console.log(error, 'ERROR_MESSAGES_SEEN');
