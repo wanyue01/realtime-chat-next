@@ -133,19 +133,19 @@ const AuthForm: FC<AuthFormProps> = ({ }) => {
               fullWidth
               type='submit'
             >
-              {variant === 'LOGIN' ? 'Sign in' : 'Register'}
+              {variant === 'LOGIN' ? '登录' : '注册'}
             </Button>
           </div>
         </form>
         <div className='flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500'>
           <div>
-            {variant === 'LOGIN' ? 'New to Messenger?' : 'Already have an account?'}
+            {variant === 'LOGIN' ? '新用户？' : '已经有账号?'}
           </div>
           <div
             onClick={toggleVariant}
             className='underline cursor-pointer'
           >
-            {variant === 'LOGIN' ? 'Create an account' : 'Login'}
+            {variant === 'LOGIN' ? '创建新账号' : '登录'}
           </div>
         </div>
       </div>
