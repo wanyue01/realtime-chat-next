@@ -56,6 +56,9 @@ const ConversationBox: FC<ConversationBoxProps> = ({
     return '[开始聊天]';
   }, [lastMessage]);
 
+  console.log(data, otherUser)
+  console.log(data?.name, otherUser?.name)
+
   return (
     <div
       onClick={handleClick}
@@ -83,7 +86,7 @@ const ConversationBox: FC<ConversationBoxProps> = ({
         <div className='focus:outline-none'>
           <div className='flex justify-between items-center mb-1'>
             <p className='text-md font-medium text-gray-900'>
-              {data.name || otherUser.name}
+              {data?.name || otherUser?.name}
             </p>
             {lastMessage?.createAt && (
               <p className='text-xs text-gray-400 font-light'>
