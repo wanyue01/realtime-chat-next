@@ -7,6 +7,7 @@ export const pusherServer = new PusherServer({
   secret: process.env.PUSHER_SECRET!,
   cluster: 'ap1',
   useTLS: true,
+  timeout: 10000
 });
 
 export const pusherClient = new PusherClient(
